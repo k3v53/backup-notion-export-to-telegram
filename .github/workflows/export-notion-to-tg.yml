@@ -1,0 +1,43 @@
+name: Export Notion to Telegram
+on:
+  workflow_dispatch: 
+jobs:
+  export_notion:
+    # timeout-minutes: 360
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Run Notion Export 
+      run: node notion-export.js
+      env:
+        NOTION_USERNAME: ${{secrets.NOTION_USERNAME}}
+        NOTION_PASSWORD: ${{secrets.NOTION_PASSWORD}}
+        NOTION_ARCHIVE_URL: ${{secrets.NOTION_ARCHIVE_URL}}
+        NOT_HEADLESS: 0
+
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: notion-export
+        path: data/
+        
+  upload_telegram:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 18
+        - name: Install dependencies
+          run: npm ci
+        - name: Install Playwright Browsers
+          run: npx playwright install --with-deps
+        - name: Run Telegram Upload 
+          run: node telegram-upload.js
