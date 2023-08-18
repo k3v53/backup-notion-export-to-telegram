@@ -26,18 +26,18 @@ jobs:
       if: always()
       with:
         name: notion-export
-        path: data/
-        
-  upload_telegram:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - uses: actions/setup-node@v3
-          with:
-            node-version: 18
-        - name: Install dependencies
-          run: npm ci
-        - name: Install Playwright Browsers
-          run: npx playwright install --with-deps
-        - name: Run Telegram Upload 
-          run: node telegram-upload.js
+        path: ./
+
+  # upload_telegram:
+  #     runs-on: ubuntu-latest
+  #     steps:
+  #       - uses: actions/checkout@v3
+  #       - uses: actions/setup-node@v3
+  #         with:
+  #           node-version: 18
+  #       - name: Install dependencies
+  #         run: npm ci
+  #       - name: Install Playwright Browsers
+  #         run: npx playwright install --with-deps
+  #       - name: Run Telegram Upload 
+  #         run: node telegram-upload.js
