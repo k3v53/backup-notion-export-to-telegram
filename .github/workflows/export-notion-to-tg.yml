@@ -31,12 +31,20 @@ jobs:
           NOTION_PASSWORD: ${{secrets.NOTION_PASSWORD}}
           NOTION_ARCHIVE_URL: ${{secrets.NOTION_ARCHIVE_URL}}
           NOT_HEADLESS: 0
-
-      - uses: actions/upload-artifact@v3
+          
+      - name: Upload Notion Export Data Artifact
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: notion-export
           path: data/
+
+      - name: Upload Screenshots
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: screenshots
+          path: screenshot/
 
   # upload_telegram:
   #     runs-on: ubuntu-latest

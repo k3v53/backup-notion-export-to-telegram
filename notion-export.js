@@ -14,16 +14,26 @@ const page = await browser.newPage();
 
 await login();
 await page.waitForTimeout(3000);
+await page.screenshot({ path: 'screenshot/after_login.png', fullPage: true });
 await page.goto(NOTION_ARCHIVE_URL);
 await page.waitForTimeout(1000);
-page.locator('.notion-topbar-more-button').click();
+await page.screenshot({
+	path: 'screenshot/notion_archive_url.png',
+	fullPage: true,
+});
 await page.waitForTimeout(1000);
-page.getByText('Export').click();
+await page.locator('.notion-topbar-more-button').click();
+await page.screenshot({
+	path: 'screenshot/notion_topbar_more_button.png',
+	fullPage: true,
+});
+await page.getByText('Export').click();
 await page.waitForTimeout(1000);
+await page.screenshot({ path: 'screenshot/opening_export_dialog.png', fullPage: true });
 // dialog
 const dialog = page.locator('div[role="dialog"]');
 await page.locator('div[role="button"]', { hasText: 'Export' }).click();
-
+await page.screenshot({ path: 'screenshot/after_confirming_export_dialog.png', fullPage: true });
 // await page.waitForTimeout(1000000);
 const download = await page.waitForEvent('download');
 await download.saveAs('./data');
@@ -36,6 +46,7 @@ async function login() {
 	await page.goto('https://notion.so/login');
 	await page.waitForTimeout(5000);
 
+	await page.screenshot({ path: 'screenshot/login.png', fullPage: true });
 	const usernameLocator = page.locator('input[type="email"]');
 	const passwordLocator = page.locator('input[type="password"]');
 
@@ -43,8 +54,10 @@ async function login() {
 	await page.waitForTimeout(1000);
 	usernameLocator.press('Enter');
 	await page.waitForTimeout(1000);
+	await page.screenshot({ path: 'screenshot/login_after_username.png', fullPage: true });
 	passwordLocator.fill(NOTION_PASSWORD);
 	await page.waitForTimeout(1000);
 	passwordLocator.press('Enter');
 	await page.waitForTimeout(1000);
+	await page.screenshot({ path: 'screenshot/login_after_password.png', fullPage: true });
 }
