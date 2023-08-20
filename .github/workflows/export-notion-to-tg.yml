@@ -30,6 +30,8 @@ jobs:
           NOTION_USERNAME: ${{secrets.NOTION_USERNAME}}
           NOTION_PASSWORD: ${{secrets.NOTION_PASSWORD}}
           NOTION_ARCHIVE_URL: ${{secrets.NOTION_ARCHIVE_URL}}
+          NOTION_TOKEN_V2: ${{secrets.NOTION_TOKEN_V2}}
+          NOTION_FILE_TOKEN: ${{secrets.NOTION_FILE_TOKEN}}
           NOT_HEADLESS: 0
           
       - name: Upload Notion Export Data Artifact
