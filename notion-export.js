@@ -17,12 +17,17 @@ const browser = await chromium.launch({
 });
 const context = await browser.newContext({ acceptDownloads: true });
 await context.addCookies([
-	{ name: 'token_v2', value: NOTION_TOKEN_V2, domain: 'notion.so', path: '/' },
+	{
+		name: 'token_v2',
+		value: NOTION_TOKEN_V2,
+		domain: '.www.notion.so',
+		path: '/',
+	},
 	{
 		name: 'file_token',
 		value: NOTION_FILE_TOKEN,
-		domain: 'notion.so',
-		path: '/',
+		domain: '.notion.so',
+		path: '/f',
 	},
 ]);
 const page = await browser.newPage();
